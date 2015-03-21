@@ -207,7 +207,15 @@ module FuelSDK
 			end
 		end
 	end
-
+	
+	class Template < Objects::Base 
+		include Objects::Soap::Read
+		include Objects::Soap::CUD
+		
+		# need to set LayoutHTML
+		
+	end
+	
 	class Email < Objects::Base
 		include Objects::Soap::Read
 		include Objects::Soap::CUD
