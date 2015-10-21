@@ -77,7 +77,8 @@ module FuelSDK
 
 	class Client
 	attr_accessor :debug, :access_token, :auth_token, :internal_token, :refresh_token,
-		:id, :secret, :signature, :package_name, :package_folders, :parent_folders, :auth_token_expiration
+		:id, :secret, :signature, :package_name, :package_folders, :parent_folders, :auth_token_expiration,
+		:refresh_callback
 
 	include FuelSDK::Soap
 	include FuelSDK::Rest
@@ -96,6 +97,7 @@ module FuelSDK
 		def initialize(params={}, debug=false)
 			@refresh_mutex = Mutex.new
 			self.debug = debug
+
 			client_config = params['client']
 			if client_config
 			self.id = client_config["id"]
@@ -107,6 +109,7 @@ module FuelSDK
 			self.refresh_token = params['refresh_token'] if params['refresh_token']
 
 			self.wsdl = params["defaultwsdl"] if params["defaultwsdl"]
+			self.refresh_callback = params["refresh_callback"] if params["refresh_callback"]
 		end
 
 		def refresh force=false
@@ -133,6 +136,9 @@ module FuelSDK
 				self.internal_token = response['legacyToken']
 				self.auth_token_expiration = Time.new + response['expiresIn']
 				self.refresh_token = response['refreshToken'] if response.has_key?("refreshToken")
+
+				# If desired, callback with the new data so the user can store it.
+				self.refresh_callback.call(self) if self.refresh_callback
 				return true
 				else 
 				return false
