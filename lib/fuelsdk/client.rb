@@ -78,7 +78,7 @@ module FuelSDK
 	class Client
 	attr_accessor :debug, :access_token, :auth_token, :internal_token, :refresh_token,
 		:id, :secret, :signature, :package_name, :package_folders, :parent_folders, :auth_token_expiration,
-		:refresh_callback
+		:refresh_callback, :reload_tokens_callback
 
 	include FuelSDK::Soap
 	include FuelSDK::Rest
@@ -110,6 +110,7 @@ module FuelSDK
 
 			self.wsdl = params["defaultwsdl"] if params["defaultwsdl"]
 			self.refresh_callback = params["refresh_callback"] if params["refresh_callback"]
+			self.reload_tokens_callback = params["reload_tokens_callback"] if params["reload_tokens_callback"]
 		end
 
 		def refresh force=false
@@ -130,15 +131,24 @@ module FuelSDK
 					h['params'] = {'legacy' => 1}
 				end
 				response = post("https://auth.exacttargetapis.com/v1/requestToken", options)
-				raise "Unable to refresh token: #{response['message']}" unless response.has_key?('accessToken')
 
-				self.access_token = response['accessToken']
-				self.internal_token = response['legacyToken']
-				self.auth_token_expiration = Time.new + response['expiresIn']
-				self.refresh_token = response['refreshToken'] if response.has_key?("refreshToken")
+				if !response.has_key?('accessToken')
+					if self.reload_tokens_callback
+						# Allow client to set new tokens - I hope he has em!
+						self.reload_tokens_callback.call(self, response)
+					else
+						raise "Unable to refresh token: #{response['message']}"
+					end
+				else
+					self.access_token = response['accessToken']
+					self.internal_token = response['legacyToken']
+					self.auth_token_expiration = Time.new + response['expiresIn']
+					self.refresh_token = response['refreshToken'] if response.has_key?("refreshToken")
 
-				# If desired, callback with the new data so the user can store it.
-				self.refresh_callback.call(self) if self.refresh_callback
+					# If desired, callback with the new data so the user can store it.
+					self.refresh_callback.call(self) if self.refresh_callback
+				end
+
 				return true
 				else 
 				return false
