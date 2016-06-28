@@ -339,6 +339,20 @@ module FuelSDK
 		end
 	end
 
+	class Group < Objects::Base
+		include Objects::Soap::Read
+		include Objects::Soap::CUD
+		attr_accessor :folder_id
+
+		def folder_property
+			'Category'
+		end
+
+		def folder_media_type
+			'list'
+		end
+	end
+
 	class OpenEvent < Objects::Base
 		attr_accessor :get_since_last_batch
 		include Objects::Soap::Read
