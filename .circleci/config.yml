@@ -5,22 +5,24 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.3-stretch-node
+      - image: circleci/ruby:2.5.7-node-browsers-legacy
     executor: ruby/default
     steps:
       - checkout
       - ruby/install-deps
+          bundler-version: 1.3
 
   test:
     parallelism: 1
     docker:
-      - image: circleci/ruby:2.6.3-stretch-node
+      - image: circleci/ruby:2.5.7-node-browsers-legacy
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
     steps:
       - checkout
       - ruby/install-deps
+          bundler-version: 1.3
       - ruby/rspec-test
 
 workflows:
