@@ -21,6 +21,7 @@ jobs:
       BUNDLE_RETRY: "3"
       RAILS_ENV: test
       RACK_ENV: test
+      APP_ENV: test
     steps:
       - checkout
       - ruby/install-deps:
