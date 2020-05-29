@@ -8,7 +8,7 @@ describe FuelSDK::Objects::Base do
 
   describe '#properties' do
     it 'is empty by default' do
-      expect(object.properties).to be_empty
+      expect(object.properties).to be_nil
     end
 
     it 'returns item in array when item is not an array' do
@@ -375,7 +375,7 @@ describe FuelSDK::DataExtension::Row do
     end
 
     it 'updates missing' do
-      rsp = mock(FuelSDK::SoapResponse)
+      rsp = double(FuelSDK::SoapResponse)
       rsp.stub(:results).and_return([{:name => 'Products', :customer_key => 'ProductsKey'}])
       rsp.stub(:success?).and_return true
 
@@ -444,7 +444,7 @@ describe FuelSDK::DataExtension::Row do
     it 'uses name to get customer key for inseration' do
       subject.name = 'Subscribers'
 
-      rsp = mock(FuelSDK::SoapResponse)
+      rsp = double(FuelSDK::SoapResponse)
       rsp.stub(:results).and_return([{:name => 'Products', :customer_key => 'ProductsKey'}])
       rsp.stub(:success?).and_return true
 
