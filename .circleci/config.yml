@@ -6,7 +6,6 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.5.7-node-browsers-legacy
-    executor: ruby/default
     steps:
       - checkout
       - ruby/install-deps:
