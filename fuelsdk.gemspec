@@ -18,13 +18,13 @@ Gem::Specification.new do |spec|
 	spec.test_files    = spec.files.grep(%r{^(samples|test|spec|features)/})
 	spec.require_paths = ["lib"]
 
-	spec.add_development_dependency "bundler", "~> 2.1.4"
+	spec.add_development_dependency "bundler", "~> 1.3"
 	spec.add_development_dependency 'rake', '~> 0'
 	spec.add_development_dependency "rspec", '~> 0'
 	spec.add_development_dependency "guard", '~> 0'
 	spec.add_development_dependency "guard-rspec", '~> 0'
 
 	spec.add_dependency "savon", "2.2.0"
-	spec.add_dependency "json", ">= 1.8.6"
+	spec.add_dependency "json", "~> 1.7"
 	spec.add_dependency "jwt", "~> 0.1.6"
 end
