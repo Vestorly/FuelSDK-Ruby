@@ -70,8 +70,8 @@ DEPENDENCIES
   guard (~> 0)
   guard-rspec (~> 0)
   rake (~> 0)
-  rspec
-  rspec_junit_formatter
+  rspec (~> 2.14, >= 2.14.1)
+  rspec_junit_formatter (~> 0.4.1)
 
 BUNDLED WITH
    2.1.4

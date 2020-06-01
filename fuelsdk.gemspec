@@ -20,8 +20,8 @@ Gem::Specification.new do |spec|
 
 	spec.add_development_dependency "bundler", "~> 2.1.4"
 	spec.add_development_dependency 'rake', '~> 0'
-	spec.add_development_dependency "rspec"
-	spec.add_development_dependency "rspec_junit_formatter"
+	spec.add_development_dependency "rspec", '~> 2.14', '>= 2.14.1'
+	spec.add_development_dependency "rspec_junit_formatter", '~> 0.4.1'
 	spec.add_development_dependency "guard", '~> 0'
 	spec.add_development_dependency "guard-rspec", '~> 0'
 
