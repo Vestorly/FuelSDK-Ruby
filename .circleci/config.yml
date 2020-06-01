@@ -27,7 +27,9 @@ jobs:
       - ruby/install-deps:
           bundler-version: "2.1.4"
           with-cache: false
-      - ruby/rspec-test
+      - run:
+          name: Run tests.
+          command: bundle exec rspec
 
 workflows:
   version: 2
