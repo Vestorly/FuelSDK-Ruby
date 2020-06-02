@@ -9,6 +9,7 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps:
+          key: "gems-v1-{{ .Revision }}"
           bundler-version: "2.1.4"
 
   test:
@@ -24,6 +25,7 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps:
+          key: "gems-v1-{{ .Revision }}"
           bundler-version: "2.1.4"
       - ruby/rspec-test
 
