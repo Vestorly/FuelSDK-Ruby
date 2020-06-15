@@ -1,0 +1,39 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@1.0
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.5.7-node-browsers-legacy
+    steps:
+      - checkout
+      - ruby/install-deps:
+          key: "gems-v1-{{ .Revision }}"
+          bundler-version: "2.1.4"
+
+  test:
+    parallelism: 1
+    docker:
+      - image: circleci/ruby:2.5.7-node-browsers-legacy
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      RAILS_ENV: test
+      RACK_ENV: test
+      APP_ENV: test
+    steps:
+      - checkout
+      - ruby/install-deps:
+          key: "gems-v1-{{ .Revision }}"
+          bundler-version: "2.1.4"
+      - ruby/rspec-test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
