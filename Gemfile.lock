@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fuelsdk (0.0.5)
+    fuelsdk (0.0.5.1)
       json (>= 1.8.6)
       jwt (~> 0.1.6)
       savon (= 2.2.0)
@@ -31,8 +31,6 @@ GEM
     mini_portile2 (2.4.0)
     multi_json (1.14.1)
     nokogiri (1.10.9)
-      mini_portile2 (~> 2.4.0)
-    nokogiri (1.10.9-x86-mingw32)
       mini_portile2 (~> 2.4.0)
     nori (2.1.0)
     rack (2.2.2)
