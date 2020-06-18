@@ -24,8 +24,9 @@ The Fuel SDK for Ruby provides easy access to ExactTarget's Fuel API Family serv
 Subscriber can be accessed using FuelSDK::Subscriber or ET_Subscriber.
 
 ## Requirements ##
-- Ruby Version 1.9.3
+- Ruby Version 2.5.7p206
 - Savon 2.2.0
+- Bundler version 2.1.4
 
 ## Getting Started ##
 Build the gem from the source
@@ -122,6 +123,16 @@ All methods on Fuel SDK objects return a generic object that follows the same st
 ## Samples ##
 Find more sample files that illustrate using all of the available functions for ExactTarget objects exposed through the API in the samples directory.
 
+
+## Running Tests Locally ##
+
+- Ruby version 2.5.7p206 
+- Bundler version 2.1.4
+- Rspec version 2.14.1
+
+```ruby
+bundle exec rspec
+```
 
 
 
